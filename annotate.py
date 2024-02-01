@@ -3,11 +3,18 @@ import argparse
 import pandas as pd
 from rich import print as rprint
 
+def main(file):
     # Load the CSV file
-    df['label_class_human'] = ''
+    df = pd.read_csv(file)
 
     # Define the list of categories
     categories = ['RFI (1)', 'Offer (2)', 'Other (3)']
+
+    # Filter the DataFrame to only include rows where 'label_class_human' is NaN
+    df_to_annotate = df[pd.isna(df['label_class_human'])]
+
+    # Use .loc to explicitly state that you're modifying the original DataFrame
+    df.loc[df_to_annotate.index, 'label_class_human'] = ''
 
     # Iterate over the filtered DataFrame rows
     for idx, row in df_to_annotate.iterrows():
