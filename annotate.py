@@ -5,16 +5,20 @@ from rich import print as rprint
 from rich.console import Console
 
 console = Console()
+from rich.prompt import Prompt
 
 def main(file):
     # Load the CSV file
     df = pd.read_csv(file)
 
+    # Ask the annotator for their language
+    language = Prompt.ask("Pick your language", choices=["EN", "DE"], default="DE")
+
     # Define the list of categories
     categories = ['RFI (1)', 'Offer (2)', 'Other (3)']
 
     # Filter the DataFrame to only include rows where 'label_class_human' is NaN
-    df_to_annotate = df[pd.isna(df['label_class_human'])]
+    df_to_annotate = df[pd.isna(df['label_class_human']) & (df['language'] == language)]
 
     # Use .loc to explicitly state that you're modifying the original DataFrame
     df.loc[df_to_annotate.index, 'label_class_human'] = ''
