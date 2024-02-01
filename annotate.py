@@ -32,7 +32,7 @@ def main(file):
 
         # Join the categories into a single string with a space between each category
         categories_string = ' '.join(categories)
-        categories_string += ' Skip (n) Exit (x)'
+        categories_string += ' Skip (+) Exit (x)'
 
         # Print the categories string
         rprint(categories_string)
