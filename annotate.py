@@ -15,7 +15,8 @@ def main(file):
     language = Prompt.ask("Pick your language", choices=["EN", "DE"], default="")
 
     # Define the list of categories
-    categories = ['RFI (1)', 'Offer (2)', 'Other (3)']
+    categories = ['RFI (1)', 'RFQ (2)', 'Offer (3)', 'Support (4)', 'Job (5)', 'Partnership (6)', 'Test (7)', 'Private (8)', 'Donations (9)', 'Other (0)']
+    values = ['rfi','rfq','offer','support','job','partnership','test','private','donations','other']
 
     # Filter the DataFrame to only include rows where 'label_class_human' is NaN
 
@@ -54,7 +55,7 @@ def main(file):
         elif choice.isdigit() and 1 <= int(choice) <= len(categories):
             # Save the category to the DataFrame
             df['label_class_human'] = df['label_class_human'].astype('object')
-            df.loc[idx, 'label_class_human'] = categories[int(choice) - 1]
+            df.loc[idx, 'label_class_human'] = values[int(choice) - 1]
         else:
             rprint("Invalid choice.")
 
