@@ -12,13 +12,16 @@ def main(file):
     df = pd.read_csv(file)
 
     # Ask the annotator for their language
-    language = Prompt.ask("Pick your language", choices=["EN", "DE"], default="DE")
+    language = Prompt.ask("Pick your language", choices=["EN", "DE"], default="")
 
     # Define the list of categories
     categories = ['RFI (1)', 'Offer (2)', 'Other (3)']
 
     # Filter the DataFrame to only include rows where 'label_class_human' is NaN
-    df_to_annotate = df[pd.isna(df['label_class_human']) & (df['language'] == language)]
+
+    df_to_annotate = df[pd.isna(df['label_class_human'])]
+    if language:
+        df_to_annotate = df_to_annotate[df_to_annotate['language'] == language]
 
     # Use .loc to explicitly state that you're modifying the original DataFrame
     df.loc[df_to_annotate.index, 'label_class_human'] = ''
