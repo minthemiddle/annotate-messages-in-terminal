@@ -52,8 +52,8 @@ def main(file):
             continue
 
         # Check if the choice is a valid number
-        elif choice.isdigit() and 1 <= int(choice) <= len(categories):
-            # Save the category to the DataFrame
+        elif len(choice) == 1 and choice.isdigit() and 0 <= int(choice) < len(categories):
+            # Save the value to the DataFrame
             df['label_class_human'] = df['label_class_human'].astype('object')
             df.loc[idx, 'label_class_human'] = values[int(choice) - 1]
         else:
