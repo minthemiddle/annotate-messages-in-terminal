@@ -32,6 +32,7 @@ def main(file):
 
         # Join the categories into a single string with a space between each category
         categories_string = ' '.join(categories)
+        categories_string += ' Skip (n) Exit (x)'
 
         # Print the categories string
         rprint(categories_string)
@@ -42,6 +43,9 @@ def main(file):
         # Check if the choice is 'x' to stop the annotation
         if choice == 'x':
             break
+
+        if choice == 'n':
+            continue
 
         # Check if the choice is a valid number
         elif choice.isdigit() and 1 <= int(choice) <= len(categories):
