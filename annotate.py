@@ -3,9 +3,7 @@ import argparse
 import pandas as pd
 from rich import print as rprint
 
-def main(input_file, output_file):
     # Load the CSV file
-    df = pd.read_csv(input_file)
     df['label_class_human'] = ''
 
     # Define the list of categories
@@ -37,13 +35,11 @@ def main(input_file, output_file):
             rprint("Invalid choice.")
 
     # Save the updated DataFrame to the CSV file
-    df.to_csv(output_file, index=False)
+    df.to_csv(file, index=False)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Script to annotate data.")
-    parser.add_argument("input_file", type=str, help="Input CSV file to annotate.")
-    parser.add_argument("output_file", type=str, help="Output CSV file to store the annotated data.")
-
+    parser.add_argument("file", type=str, help="Input CSV file to annotate.")
     args = parser.parse_args()
 
-    main(args.input_file, args.output_file)
+    main(args.file)
