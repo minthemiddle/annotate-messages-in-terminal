@@ -47,8 +47,8 @@ def main(file):
         else:
             rprint("Invalid choice.")
 
-    # Save the updated DataFrame to the CSV file
-    df.to_csv(file, index=False)
+        # Save the updated DataFrame to the CSV file
+        df.to_csv(file, index=False)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Script to annotate data.")
