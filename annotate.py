@@ -2,6 +2,9 @@ import sys
 import argparse
 import pandas as pd
 from rich import print as rprint
+from rich.console import Console
+
+console = Console()
 
 def main(file):
     # Load the CSV file
@@ -18,6 +21,7 @@ def main(file):
 
     # Iterate over the filtered DataFrame rows
     for idx, row in df_to_annotate.iterrows():
+        console.clear()
         rprint("Message:")
         rprint(row['message'])
         rprint("Select category:")
