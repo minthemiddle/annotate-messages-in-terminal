@@ -9,8 +9,8 @@ from rich import print as rprint
     # Define the list of categories
     categories = ['RFI (1)', 'Offer (2)', 'Other (3)']
 
-    # Iterate over the DataFrame rows
-    for idx, row in df.iterrows():
+    # Iterate over the filtered DataFrame rows
+    for idx, row in df_to_annotate.iterrows():
         rprint("Message:")
         rprint(row['message'])
         rprint("Select category:")
