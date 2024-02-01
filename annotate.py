@@ -22,9 +22,11 @@ def main(file):
         rprint(row['message'])
         rprint("Select category:")
 
-        # Print the categories
-        for i, category in enumerate(categories, start=1):
-            rprint(f"{i}. {category}")
+        # Join the categories into a single string with a space between each category
+        categories_string = ' '.join(categories)
+
+        # Print the categories string
+        rprint(categories_string)
 
         # Get the user's choice
         choice = input()
