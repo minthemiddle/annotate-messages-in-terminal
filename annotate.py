@@ -3,16 +3,26 @@ import argparse
 import pandas as pd
 from rich import print as rprint
 from rich.console import Console
+import configparser
+from rich.prompt import Prompt
+
+# Create a ConfigParser object
+config = configparser.ConfigParser()
+
+# Read the INI file
+config.read('config.ini')
+
+# Access and print the values
+language_choices = [option.upper() for option in config.options('Languages')]
 
 console = Console()
-from rich.prompt import Prompt
 
 def main(file):
     # Load the CSV file
     df = pd.read_csv(file)
 
     # Ask the annotator for their language
-    language = Prompt.ask("Pick your language", choices=["EN", "DE"], default="")
+    language = Prompt.ask("Pick your language", choices=language_choices, default="")
 
     # Define the list of categories
     categories_values_dict = {
