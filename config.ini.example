@@ -3,13 +3,11 @@ EN = English
 DE = German
 
 [Categories]
-1 = RFI
-2 = RFQ
-3 = Offer
-4 = Support
-5 = Job
-6 = Partnership
-7 = Test
-8 = Private
-9 = Donations
-0 = Other
+1 = Infos
+2 = Offer
+3 = Support
+4 = Job
+5 = Test
+6 = Private
+7 = Donations
+8 = Other
