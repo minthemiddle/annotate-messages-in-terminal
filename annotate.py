@@ -27,6 +27,10 @@ def main(file):
     # Load the CSV file
     df = pd.read_csv(file)
 
+    # Check if 'label_class_human' column exists, if not add it
+    if 'label_class_human' not in df.columns:
+        df['label_class_human'] = pd.NA
+
     # Ask the annotator for their language
     language = Prompt.ask("Pick your language", choices=language_choices, default="")
 
