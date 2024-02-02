@@ -17,6 +17,12 @@ language_choices = [option.upper() for option in config.options('Languages')]
 
 console = Console()
 
+def count_unannotated_rows(df, language=None):
+    if language:
+        return df[(pd.isna(df['label_class_human'])) & (df['language'] == language)].shape[0]
+    else:
+        return pd.isna(df['label_class_human']).sum()
+
 def main(file):
     # Load the CSV file
     df = pd.read_csv(file)
@@ -27,46 +33,43 @@ def main(file):
     # Access and print the values
     categories_values_dict = {f'({i+1}) {config.get("Categories", option)}': config.get("Categories", option).lower() for i, option in enumerate(config.options('Categories'))}
 
-
     # Filter the DataFrame to only include rows where 'label_class_human' is NaN
-
     df_to_annotate = df[pd.isna(df['label_class_human'])]
     if language:
         df_to_annotate = df_to_annotate[df_to_annotate['language'] == language]
 
-    # Use .loc to explicitly state that you're modifying the original DataFrame
-    df.loc[df_to_annotate.index, 'label_class_human'] = ''
-
     # Iterate over the filtered DataFrame rows
     for idx, row in df_to_annotate.iterrows():
         console.clear()
-        rprint("Message:")
-        rprint(row['message'])
-        rprint("Select category:")
+        remaining = count_unannotated_rows(df, language if language else None)
+        console.print(f"Remaining messages to annotate: {remaining}")
+        console.print("Message:")
+        console.print(row['message'])
+        console.print("Select category:")
 
         # Join the categories into a single string with a space between each category
         categories_string = ' '.join(categories_values_dict.keys())
         categories_string += ' Skip (+) Exit (x)'
 
         # Print the categories string
-        rprint(categories_string)
+        console.print(categories_string)
 
         # Get the user's choice
-        choice = input()
+        choice = Prompt.ask("Your choice")
 
         # Check if the choice is 'x' to stop the annotation
         if choice == 'x':
             break
 
-        if choice == 'n':
+        if choice == '+':
             continue
 
-        # take 2
-        elif len(choice) == 1 and choice.isdigit() and 0 <= int(choice) < len(categories_values_dict):
-            df['label_class_human'] = df['label_class_human'].astype('object')
-            df.loc[idx, 'label_class_human'] = categories_values_dict[list(categories_values_dict.keys())[int(choice) - 1]]
+        # Update the DataFrame based on the user's choice
+        elif len(choice) == 1 and choice.isdigit() and 0 < int(choice) <= len(categories_values_dict):
+            choice_index = int(choice) - 1
+            df.loc[idx, 'label_class_human'] = list(categories_values_dict.values())[choice_index]
         else:
-            rprint("Invalid choice.")
+            console.print("Invalid choice.")
 
         # Save the updated DataFrame to the CSV file
         df.to_csv(file, index=False)
