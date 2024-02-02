@@ -1,3 +1,15 @@
 [Languages]
 EN = English
 DE = German
+
+[Categories]
+1 = RFI
+2 = RFQ
+3 = Offer
+4 = Support
+5 = Job
+6 = Partnership
+7 = Test
+8 = Private
+9 = Donations
+0 = Other
