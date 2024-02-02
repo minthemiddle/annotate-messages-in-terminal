@@ -1,6 +1,6 @@
-# Annotate requests with LLM
+# Annotate messages with classes in terminal
 
-Annotate requests on B2B marketplaces.
+Annotate messages with classes in the terminal.
 
 - `pip install pandas rich`
 - `cp config.ini.example config.ini`
@@ -16,6 +16,8 @@ Annotate requests on B2B marketplaces.
 - Shows amount of remaining messages that need to be annotated
 
 ## Notes
+
+The CSV needs to have a column called `message` for the content to be labelled.
 
 The human annotation will be saved to a column called `label_class_human`.
 The column gets created if not present already.
