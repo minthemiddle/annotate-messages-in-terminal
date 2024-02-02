@@ -24,19 +24,9 @@ def main(file):
     # Ask the annotator for their language
     language = Prompt.ask("Pick your language", choices=language_choices, default="")
 
-    # Define the list of categories
-    categories_values_dict = {
-        '(1) RFI': 'rfi',
-        '(2) RFQ': 'rfq',
-        '(3) Offer': 'offer',
-        '(4) Support': 'support',
-        '(5) Job': 'job',
-        '(6) Partnership': 'partnership',
-        '(7) Test': 'test',
-        '(8) Private': 'private',
-        '(9) Donations': 'donations',
-        '(0) Other': 'other'
-    }
+    # Access and print the values
+    categories_values_dict = {f'({i+1}) {config.get("Categories", option)}': config.get("Categories", option).lower() for i, option in enumerate(config.options('Categories'))}
+
 
     # Filter the DataFrame to only include rows where 'label_class_human' is NaN
 
