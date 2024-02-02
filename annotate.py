@@ -53,7 +53,7 @@ def main(file):
 
         # Join the categories into a single string with a space between each category
         categories_string = ' '.join(categories_values_dict.keys())
-        categories_string += ' (+) Skip (x) Exit'
+        categories_string += ' (0) Skip (x) Exit'
 
         # Print the categories string
         console.print(categories_string)
@@ -65,7 +65,7 @@ def main(file):
         if choice == 'x':
             break
 
-        if choice == '+':
+        if choice == '0':
             continue
 
         # Update the DataFrame based on the user's choice
