@@ -15,8 +15,18 @@ def main(file):
     language = Prompt.ask("Pick your language", choices=["EN", "DE"], default="")
 
     # Define the list of categories
-    categories = ['RFI (1)', 'RFQ (2)', 'Offer (3)', 'Support (4)', 'Job (5)', 'Partnership (6)', 'Test (7)', 'Private (8)', 'Donations (9)', 'Other (0)']
-    values = ['rfi','rfq','offer','support','job','partnership','test','private','donations','other']
+    categories_values_dict = {
+        '(1) RFI': 'rfi',
+        '(2) RFQ': 'rfq',
+        '(3) Offer': 'offer',
+        '(4) Support': 'support',
+        '(5) Job': 'job',
+        '(6) Partnership': 'partnership',
+        '(7) Test': 'test',
+        '(8) Private': 'private',
+        '(9) Donations': 'donations',
+        '(0) Other': 'other'
+    }
 
     # Filter the DataFrame to only include rows where 'label_class_human' is NaN
 
@@ -35,7 +45,7 @@ def main(file):
         rprint("Select category:")
 
         # Join the categories into a single string with a space between each category
-        categories_string = ' '.join(categories)
+        categories_string = ' '.join(categories_values_dict.keys())
         categories_string += ' Skip (+) Exit (x)'
 
         # Print the categories string
@@ -51,11 +61,10 @@ def main(file):
         if choice == 'n':
             continue
 
-        # Check if the choice is a valid number
-        elif len(choice) == 1 and choice.isdigit() and 0 <= int(choice) < len(categories):
-            # Save the value to the DataFrame
+        # take 2
+        elif len(choice) == 1 and choice.isdigit() and 0 <= int(choice) < len(categories_values_dict):
             df['label_class_human'] = df['label_class_human'].astype('object')
-            df.loc[idx, 'label_class_human'] = values[int(choice) - 1]
+            df.loc[idx, 'label_class_human'] = categories_values_dict[list(categories_values_dict.keys())[int(choice) - 1]]
         else:
             rprint("Invalid choice.")
 
