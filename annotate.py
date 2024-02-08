@@ -3,15 +3,6 @@ import pandas as pd
 from rich.console import Console
 import configparser
 
-# Create a ConfigParser object
-config = configparser.ConfigParser()
-
-# Read the INI file
-config.read('config.ini')
-
-# Access and print the values
-language_choices = [option.upper() for option in config.options('Languages')]
-
 console = Console()
 
 def count_unannotated_rows(df, language=None):
@@ -22,8 +13,16 @@ def count_unannotated_rows(df, language=None):
 
 @click.command()
 @click.argument('file', type=click.Path(exists=True))
-def main(file):
+@click.option('--config', 'config_file', default='config.ini', show_default=True, help='Path to the configuration file.')
+def main(file, config_file):
     """Script to annotate data."""
+
+    config = configparser.ConfigParser()
+    config.read(config_file)
+
+    # Access and print the values
+    language_choices = [option.upper() for option in config.options('Languages')]
+
     df = pd.read_csv(file)
 
     if 'label_class_human' not in df.columns:
