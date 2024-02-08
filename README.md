@@ -24,6 +24,7 @@ The column gets created if not present already.
 
 To use language filtering, you need a column `language` in the `*.csv`.
 To detect languages, you can use a tool like [Lingua](https://github.com/pemistahl/lingua-py).
+Or use the tool ["detect from message"](https://github.com/minthemiddle/detect-language-from-message) that builds upon `Lingua`.
 Output ISO Code 639_1 codes like `DE` or `EN`.
 
 The class list is limited to 9 options.
