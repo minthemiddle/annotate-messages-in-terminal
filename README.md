@@ -7,6 +7,7 @@ Annotate messages with classes in the terminal.
 - Adjust languages and categories in `config.ini`
 - `python3 annotate.py FILE.csv`
 - (optional) `python3 annotate.py --config CUSTOM_CONFIG.INI FILE.csv` to use a custom config.
+- (optional) `python3 annotate.py --comment FILE.csv` to save a comment after every annotation.
 
 ## Features
 
