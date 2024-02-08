@@ -5,7 +5,7 @@ Annotate messages with classes in the terminal.
 - `pip install pandas rich`
 - `cp config.ini.example config.ini`
 - Adjust languages and categories in `config.ini`
-- `python3 annotate FILE.csv`
+- `python3 annotate.py FILE.csv`
 
 ## Features
 
