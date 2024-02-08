@@ -6,6 +6,7 @@ Annotate messages with classes in the terminal.
 - `cp config.ini.example config.ini`
 - Adjust languages and categories in `config.ini`
 - `python3 annotate.py FILE.csv`
+- (optional) `python3 annotate.py --config CUSTOM_CONFIG.INI FILE.csv` to use a custom config.
 
 ## Features
 
