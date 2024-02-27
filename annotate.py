@@ -2,6 +2,7 @@ import click
 import pandas as pd
 from rich.console import Console
 import configparser
+import os
 
 console = Console()
 
@@ -18,8 +19,11 @@ def count_unannotated_rows(df, language=None):
 def main(file, config_file, comment):
     """Script to annotate data."""
 
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    config_path = os.path.join(script_dir, config_file)
+
     config = configparser.ConfigParser()
-    config.read(config_file)
+    config.read(config_path)
 
     # Access and print the values
     language_choices = [option.upper() for option in config.options('Languages')]
