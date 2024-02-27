@@ -24,6 +24,9 @@ def main(file, config_file, comment):
 
     config = configparser.ConfigParser()
     config.read(config_path)
+    
+    # Default language
+    default_language = config.get('Defaults', 'default_language', fallback='EN')
 
     # Access and print the values
     language_choices = [option.upper() for option in config.options('Languages')]
@@ -36,7 +39,7 @@ def main(file, config_file, comment):
     if 'comment' not in df.columns and comment:
             df['comment'] = pd.NA
 
-    language = click.prompt("Pick your language", type=click.Choice(language_choices), default="")
+    language = click.prompt("Pick your language", type=click.Choice(language_choices), default=default_language)
 
     categories_values_dict = {f'({i+1}) {config.get("Categories", option)}': config.get("Categories", option).lower() for i, option in enumerate(config.options('Categories'))}
 

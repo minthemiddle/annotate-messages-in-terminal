@@ -2,6 +2,9 @@
 EN = English
 DE = German
 
+[Defaults]
+default_language = EN
+
 [Categories]
 1 = Infos
 2 = Offer
