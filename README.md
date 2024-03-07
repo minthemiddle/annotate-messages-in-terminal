@@ -21,7 +21,7 @@ Annotate messages with classes in the terminal.
 
 The CSV needs to have a column called `message` for the content to be labelled.
 
-The human annotation will be saved to a column called `label_class_human`.
+The human annotation will be saved to a column called `classification_human`.
 The column gets created if not present already.
 
 To use language filtering, you need a column `language` in the `*.csv`.

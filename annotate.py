@@ -8,9 +8,9 @@ console = Console()
 
 def count_unannotated_rows(df, language=None):
     if language:
-        return df[(pd.isna(df['label_classification_human'])) & (df['language'] == language)].shape[0]
+        return df[(pd.isna(df['classification_human'])) & (df['language'] == language)].shape[0]
     else:
-        return pd.isna(df['label_classification_human']).sum()
+        return pd.isna(df['classification_human']).sum()
 
 @click.command()
 @click.argument('file', type=click.Path(exists=True))
@@ -33,8 +33,8 @@ def main(file, config_file, comment):
 
     df = pd.read_csv(file)
 
-    if 'label_classification_human' not in df.columns:
-        df['label_classification_human'] = pd.NA
+    if 'classification_human' not in df.columns:
+        df['classification_human'] = pd.NA
 
     if 'comment' not in df.columns and comment:
             df['comment'] = pd.NA
@@ -43,7 +43,7 @@ def main(file, config_file, comment):
 
     categories_values_dict = {f'({i+1}) {config.get("Categories", option)}': config.get("Categories", option).lower() for i, option in enumerate(config.options('Categories'))}
 
-    df_to_annotate = df[pd.isna(df['label_classification_human'])]
+    df_to_annotate = df[pd.isna(df['classification_human'])]
     if language:
         df_to_annotate = df_to_annotate[df_to_annotate['language'] == language]
 
@@ -69,7 +69,7 @@ def main(file, config_file, comment):
 
         elif len(choice) == 1 and choice.isdigit() and 0 < int(choice) <= len(categories_values_dict):
             choice_index = int(choice) - 1
-            df.loc[idx, 'label_classification_human'] = list(categories_values_dict.values())[choice_index]
+            df.loc[idx, 'classification_human'] = list(categories_values_dict.values())[choice_index]
             if comment:
                 user_comment = click.prompt("Enter your comment", default="")
                 df.loc[idx, 'comment'] = user_comment
